@@ -10,8 +10,7 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <!-- <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate> -->
-          <form (ngSubmit)="loginUser()" #loginForm="ngForm" novalidate>
-
+        <form (ngSubmit)="loginUser()" #loginForm="ngForm" novalidate>
           <div
             class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
           >
@@ -24,15 +23,23 @@
             >
               <i class="fab fa-facebook-f"></i>
             </button>
-
-            <button
+            <a 
+            href="http://localhost:5000/api/auth/twitter/callback"
+            data-mdb-button-init
+            data-mdb-ripple-init
+            class="btn btn-primary btn-floating mx-1"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <!-- <button
               type="button"
               data-mdb-button-init
               data-mdb-ripple-init
               class="btn btn-primary btn-floating mx-1"
+              href="http://localhost:5000/api/auth/twitter"
             >
               <i class="fab fa-twitter"></i>
-            </button>
+            </button> -->
 
             <button
               type="button"
@@ -115,7 +122,9 @@
                 ariaCurrentWhenActive="page"
                 >Register</a
               > -->
-              <button class="link-danger" (click)="goToRegister()">Register</button>
+              <button class="link-danger" (click)="goToRegister()">
+                Register
+              </button>
             </p>
           </div>
         </form>

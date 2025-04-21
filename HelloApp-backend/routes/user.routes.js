@@ -13,7 +13,7 @@ import {
 
 const router = express.Router();
 
-router.post("/register", authController.register);
+router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", verifyJWT, logoutUser);
 router.post('/bulk', insertUsersBulk);

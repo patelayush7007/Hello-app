@@ -4,13 +4,25 @@ import dotenv from 'dotenv';
 import connectDB from './db/index.js';
 import userRoutes from './routes/user.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import session from 'express-session';
+import passport from './config/passport.js';
 
-dotenv.config();
 const app = express();
+dotenv.config();
+
+
+app.use(session({
+  secret: 'twitter_secret',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.json());
+app.use(cors());
 connectDB();
 
-app.use(cors());
-app.use(express.json());
 
 // Mounting routes
 app.use('/api/users', userRoutes);

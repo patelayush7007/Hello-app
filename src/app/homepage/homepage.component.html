@@ -57,7 +57,13 @@
     </div>
   </nav>
 </header>
+<br><br><br><br><br><br><br><br><br><br>
+<div *ngIf="user">
+  <h2>Welcome, {{ user.displayName || user.name }}</h2>
+  <p>Twitter Handle: {{ '@' + user.username }}</p>
+  <img [src]="user?.photos?.[0]?.value" alt="Profile Photo" *ngIf="user?.photos?.length">
 
+</div>
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container text-center">
     <span class="text-muted">© 2025 Hello. All rights reserved.</span>

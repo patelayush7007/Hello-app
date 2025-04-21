@@ -5,31 +5,35 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-homepage',
-  imports: [
-    CommonModule,  // <-- Import CommonModule here
-  ],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.css'
+  styleUrls: ['./homepage.component.css']  
 })
 export class HomepageComponent implements OnInit {
-  user: any;
+  user: any = null;
 
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.user = this.userService.getUser();
+     if (this.user?.photos?.[0]?.value?.startsWith('http://')) {
+    this.user.photos[0].value = this.user.photos[0].value.replace('http://', 'https://');
+  }
     if (!this.user) {
-      this.router.navigate(['/login']);  // Redirect if not logged in
+      this.router.navigate(['/login']);
     }
   }
 
   logout() {
-    // Clear user data from the service
-    this.userService.clearUser();
-
-    // Redirect to the login page
-    this.router.navigate(['']);
-    // window.location.href = '/login';  // Ensure the redirect happens correctly
+    console.log('Logging out...'); 
+    this.userService.clearUser(); // clear local user data
+    this.user = null;
+    
+    // clear from localStorage/sessionStorage 
+    localStorage.removeItem('user');
+    
+    this.router.navigate(['']); // redirect to login route
+    alert("user logged out successfully")
   }
 }
