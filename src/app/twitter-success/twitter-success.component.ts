@@ -22,9 +22,12 @@ export class TwitterSuccessComponent implements OnInit {
 
       // Save to localStorage (or use UserService)
       localStorage.setItem('user', JSON.stringify(this.user));
+      console.log(this.user);
+      
 
       // Optionally navigate to home after saving
-      this.router.navigate(['/home']);
+      // this.router.navigate(['/home']);
+      
     });
   }
 }

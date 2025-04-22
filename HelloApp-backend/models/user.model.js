@@ -3,9 +3,16 @@ import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  // Common fields
+  name: { type: String },
+  email: { type: String, unique: false }, // Twitter users might not have emails
+  password: { type: String },
+
+  // Twitter-specific fields
+  twitterId: { type: String, unique: true, sparse: true },
+  username: { type: String },
+  displayName: { type: String },
+  profileImage: { type: String },
 }, { timestamps: true });
 
 
