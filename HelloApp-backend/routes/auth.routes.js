@@ -1,6 +1,10 @@
 import express from 'express';
 import { registerUser, loginUser } from '../controllers/auth.controller.js';
 import passport from 'passport';
+import  isAuthenticated  from '../middlewares/isAuthenticated.js';
+import  isAdmin  from '../middlewares/isAdmin.js';
+import User from '../models/user.model.js';
+
 const router = express.Router();
 router.get('/twitter', passport.authenticate('twitter'));
 
@@ -27,5 +31,15 @@ router.get('/logout', (req, res) => {
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.delete('/users/:id', isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting user', error: err });
+  }
+});
 
 export default router;

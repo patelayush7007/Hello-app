@@ -71,7 +71,7 @@ passport.use(
             displayName,
             profileImage: photos?.[0]?.value || null,
           });
-          await user.save();
+          await user.save();  
           console.log('New user saved:', user);
         } else {
           console.log('User already exists:', user);

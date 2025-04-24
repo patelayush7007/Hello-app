@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken";
 const userSchema = new mongoose.Schema({
   // Common fields
   name: { type: String },
-  email: { type: String, unique: false }, // Twitter users might not have emails
+  email: { type: String, unique: false },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
   password: { type: String },
 
   // Twitter-specific fields

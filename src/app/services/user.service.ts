@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   private user: any = null;
-
+  private apiUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) {}
 
   // API endpoint for registration
@@ -49,5 +49,12 @@ export class UserService {
     this.user = null;
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
+  }
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users`);
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/users/${userId}`);
   }
 }

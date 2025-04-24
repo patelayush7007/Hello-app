@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">User Management</h2>
+
+  <!-- Table to display users -->
+  <table *ngIf="users.length > 0" class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name || user.displayName }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email || 'OAuth User' }}</td>
+        <td>
+          <button (click)="deleteUser(user._id)" class="btn btn-danger btn-sm">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message when no users found -->
+  <p *ngIf="users.length === 0" class="text-center">No users found.</p>
+</div>
